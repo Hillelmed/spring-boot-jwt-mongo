@@ -40,14 +40,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             try {
                 username = jwtTokenUtil.getUsernameFromToken(authToken);
             } catch (IllegalArgumentException e) {
-                log.error("an error occurred during getting username from token {}", e.getMessage());
+                log.error("An error occurred during getting username from token {}", e.getMessage());
             } catch (ExpiredJwtException e) {
-                log.warn("the token is expired and not valid anymore {}", e.getMessage());
+                log.info("The token is expired {}", e.getMessage());
             } catch (SignatureException e) {
-                log.error("Authentication Failed. Username or Password not valid.");
+                log.error("Authentication Failed. Username or Password are not valid.");
             }
         } else {
-            log.warn("couldn't find bearer string, will ignore the header");
+            log.info("Couldn't find bearer token");
         }
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
@@ -56,8 +56,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (Boolean.TRUE.equals(jwtTokenUtil.validateToken(authToken, userDetails))) {
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, List.of(new SimpleGrantedAuthority("ROLE_ADMIN")));
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
-                log.info("authenticated user {}, setting security context", username);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+                log.info("Authenticated user {}", username);
             }
         }
         chain.doFilter(req, res);

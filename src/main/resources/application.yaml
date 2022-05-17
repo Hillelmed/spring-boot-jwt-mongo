@@ -1,3 +1,7 @@
+application:
+  security:
+    signing_key: hillel144
+    token_valid_second: 20
 server:
   port: 8081
 spring:

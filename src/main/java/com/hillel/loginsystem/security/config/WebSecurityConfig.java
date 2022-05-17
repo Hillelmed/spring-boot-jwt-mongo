@@ -1,5 +1,6 @@
 package com.hillel.loginsystem.security.config;
 
+import com.hillel.loginsystem.security.config.properties.SecurityProp;
 import com.hillel.loginsystem.security.entrypoint.JwtAuthenticationEntryPoint;
 import com.hillel.loginsystem.security.filter.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ import javax.annotation.Resource;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtAuthenticationEntryPoint unauthorizedHandler;
+
     @Resource(name = "userService")
     private UserDetailsService userDetailsService;
 
@@ -50,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().
                 authorizeRequests()
-                .antMatchers("/v1/token/*", "/signup").permitAll()
+                .antMatchers("/v1/token/*", "/v1/users/signup").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()

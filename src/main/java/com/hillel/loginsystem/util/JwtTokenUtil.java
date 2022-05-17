@@ -1,10 +1,11 @@
 package com.hillel.loginsystem.util;
 
-import com.hillel.loginsystem.model.Constants;
 import com.hillel.loginsystem.model.User;
+import com.hillel.loginsystem.security.config.properties.SecurityProp;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -15,7 +16,10 @@ import java.util.Date;
 import java.util.function.Function;
 
 @Component
+@RequiredArgsConstructor
 public class JwtTokenUtil implements Serializable {
+
+    private final SecurityProp securityProp;
 
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
@@ -32,7 +36,7 @@ public class JwtTokenUtil implements Serializable {
 
     private Claims getAllClaimsFromToken(String token) {
         return Jwts.parser()
-                .setSigningKey(Constants.SIGNING_KEY)
+                .setSigningKey(securityProp.getSigningKey())
                 .parseClaimsJws(token)
                 .getBody();
     }
@@ -55,8 +59,8 @@ public class JwtTokenUtil implements Serializable {
                 .setClaims(claims)
                 .setIssuer("https://www.linkedin.com/in/hillel-medioni-b82a19173/")
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + Constants.ACCESS_TOKEN_VALIDITY_SECONDS * 1000))
-                .signWith(SignatureAlgorithm.HS256, Constants.SIGNING_KEY)
+                .setExpiration(new Date(System.currentTimeMillis() + securityProp.getTokenValidSecond() * 1000))
+                .signWith(SignatureAlgorithm.HS512, securityProp.getSigningKey())
                 .compact();
     }
 

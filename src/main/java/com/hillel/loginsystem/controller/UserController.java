@@ -18,7 +18,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping
+    @PostMapping("/signup")
     public ResponseEntity<User> saveUser(@RequestBody UserDto user) {
         return new ResponseEntity<>(userService.createUser(user), HttpStatus.OK);
     }
@@ -29,12 +29,12 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getOne(@PathVariable int id) {
+    public ResponseEntity<User> getById(@PathVariable int id) {
         return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<UserDto> update(@RequestBody UserDto userDto) {
+    @PutMapping
+    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto) {
         return new ResponseEntity<>(userService.update(userDto), HttpStatus.OK);
     }
 
