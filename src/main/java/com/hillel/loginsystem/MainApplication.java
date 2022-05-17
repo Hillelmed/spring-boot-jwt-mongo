@@ -13,10 +13,10 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 @OpenAPIDefinition(info = @Info(title = "Users API", version = "1", description = "Users login system Information"))
 @SecurityScheme(name = "bearer-jwt", scheme = "bearer", type = SecuritySchemeType.HTTP, in = SecuritySchemeIn.HEADER)
 @ConfigurationPropertiesScan("com.hillel.loginsystem.security.config.properties")
-public class Application {
+public class MainApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(MainApplication.class, args);
     }
 
 }
