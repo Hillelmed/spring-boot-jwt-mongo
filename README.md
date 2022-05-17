@@ -7,9 +7,12 @@ The example uses maven as a build tool and also sample script to run on applicat
 
  1. Spring Boot (2.6.7)
  2. JWT (0.9.1)
- 3. Mongo
+ 3. MongoDB
  4. Lombok
  5. Java 11
+
+## Swagger link
+[Swagger LOCAL](http://localhost:8081/swagger-ui/index.html)
 
 ## Design
 ![alt text](https://i.ibb.co/qBT7cW4/Sprint-Security-Jwt-Mongo.jpg)
