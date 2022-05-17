@@ -10,3 +10,6 @@ The example uses maven as a build tool and also sample script to run on applicat
  3. Mongo
  4. Lombok
  5. Java 11
+
+## Design
+![alt text](https://i.ibb.co/qBT7cW4/Sprint-Security-Jwt-Mongo.jpg)
