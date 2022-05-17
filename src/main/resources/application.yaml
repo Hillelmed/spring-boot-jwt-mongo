@@ -1,0 +1,10 @@
+server:
+  port: 8081
+spring:
+  main:
+    allow-bean-definition-overriding: true
+    mongodb:
+      port: 27017
+      database: db
+#      username: ${MONGO_USER}
+#      password: ${MONGO_PASSWORD}
