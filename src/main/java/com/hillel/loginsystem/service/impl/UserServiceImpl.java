@@ -1,8 +1,8 @@
 package com.hillel.loginsystem.service.impl;
 
 import com.hillel.loginsystem.dao.UserDao;
-import com.hillel.loginsystem.model.User;
 import com.hillel.loginsystem.dto.UserDto;
+import com.hillel.loginsystem.model.User;
 import com.hillel.loginsystem.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -14,7 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +32,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> userOptional = userDao.findByUsername(username);
-        if (!userOptional.isPresent()) {
+        if (userOptional.isEmpty()) {
             throw new UsernameNotFoundException("Invalid username or password.");
         }
         User user = userOptional.get();
@@ -41,7 +40,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     private List<SimpleGrantedAuthority> getAuthority() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
     }
 
     public List<User> findAll() {

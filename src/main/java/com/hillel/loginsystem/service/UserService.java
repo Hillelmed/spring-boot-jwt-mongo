@@ -1,7 +1,7 @@
 package com.hillel.loginsystem.service;
 
-import com.hillel.loginsystem.model.User;
 import com.hillel.loginsystem.dto.UserDto;
+import com.hillel.loginsystem.model.User;
 
 import java.util.List;
 

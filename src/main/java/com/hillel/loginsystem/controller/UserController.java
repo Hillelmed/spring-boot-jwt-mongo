@@ -1,7 +1,7 @@
 package com.hillel.loginsystem.controller;
 
-import com.hillel.loginsystem.model.User;
 import com.hillel.loginsystem.dto.UserDto;
+import com.hillel.loginsystem.model.User;
 import com.hillel.loginsystem.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
