@@ -2,6 +2,12 @@ application:
   security:
     signing_key: hillel144
     token_valid_second: 20
+springdoc:
+  api-docs:
+    path: /example/v3/api-docs
+  swagger-ui:
+    path: /swagger-ui/index.html
+
 server:
   port: 8081
 spring:

@@ -3,6 +3,7 @@ package com.hillel.loginsystem.controller;
 import com.hillel.loginsystem.dto.UserDto;
 import com.hillel.loginsystem.model.User;
 import com.hillel.loginsystem.service.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,14 +15,10 @@ import java.util.List;
 @RestController
 @RequestMapping("v1/users")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearer-jwt")
 public class UserController {
 
     private final UserService userService;
-
-    @PostMapping("/signup")
-    public ResponseEntity<User> saveUser(@RequestBody UserDto user) {
-        return new ResponseEntity<>(userService.createUser(user), HttpStatus.OK);
-    }
 
     @GetMapping
     public ResponseEntity<List<User>> listUser() {

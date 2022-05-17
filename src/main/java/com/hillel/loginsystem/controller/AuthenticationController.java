@@ -1,5 +1,6 @@
 package com.hillel.loginsystem.controller;
 
+import com.hillel.loginsystem.dto.UserDto;
 import com.hillel.loginsystem.model.AuthToken;
 import com.hillel.loginsystem.model.LoginUser;
 import com.hillel.loginsystem.model.User;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("v1/token")
+@RequestMapping("v1")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
@@ -23,12 +24,18 @@ public class AuthenticationController {
     private final JwtTokenUtil jwtTokenUtil;
     private final UserService userService;
 
-    @PostMapping("/generate")
+    @PostMapping("/token/generate")
     public ResponseEntity<AuthToken> generateToken(@RequestBody LoginUser loginUser) throws AuthenticationException {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUser.getUsername(), loginUser.getPassword()));
         final User user = userService.findByUserName(loginUser.getUsername());
         final String token = jwtTokenUtil.generateToken(user);
         return new ResponseEntity<>(new AuthToken(token, user.getUsername()), HttpStatus.OK);
     }
+
+    @PostMapping("/signup")
+    public ResponseEntity<User> saveUser(@RequestBody UserDto user) {
+        return new ResponseEntity<>(userService.createUser(user), HttpStatus.OK);
+    }
+
 
 }
