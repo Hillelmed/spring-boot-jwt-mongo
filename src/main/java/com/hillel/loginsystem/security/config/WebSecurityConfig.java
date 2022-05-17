@@ -1,6 +1,5 @@
 package com.hillel.loginsystem.security.config;
 
-import com.hillel.loginsystem.security.config.properties.SecurityProp;
 import com.hillel.loginsystem.security.entrypoint.JwtAuthenticationEntryPoint;
 import com.hillel.loginsystem.security.filter.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
