@@ -2,6 +2,7 @@ package com.hillel.loginsystem.security.config;
 
 import com.hillel.loginsystem.security.entrypoint.JwtAuthenticationEntryPoint;
 import com.hillel.loginsystem.security.filter.JwtAuthenticationFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,13 +22,12 @@ import javax.annotation.Resource;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final JwtAuthenticationEntryPoint unauthorizedHandler;
     @Resource(name = "userService")
     private UserDetailsService userDetailsService;
-
-    @Autowired
-    private JwtAuthenticationEntryPoint unauthorizedHandler;
 
     @Override
     @Bean
@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().
                 authorizeRequests()
-                .antMatchers("v1/token/*", "/signup").permitAll()
+                .antMatchers("/v1/token/*", "/signup").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
